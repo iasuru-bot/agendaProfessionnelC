@@ -1,0 +1,62 @@
+
+
+Structure agenda{
+    variable nb_rdv en entier
+    Pointeur 1_rdv en rdv
+}
+Structure rdv{
+    Variable nom_rdv en caractère
+    Variable debut_rdv en entier
+    Variable duree_rdv en entier
+    Variable lieu_rdv en caractère
+    Variable personne_rdv en caractère
+    Pointeur rdv_suiv en rdv
+}
+
+    
+liste en agenda
+affiche_rdv en rdv
+choix,comparaison,date_recherche en entier
+nom_recherche[20] en char
+//on imagine que la liste chainée est dejà complété
+Debut
+
+
+//Recherche 
+    ecrire ("Voulez vous rechercher votre rendez-vous par nom(1) ou par date(2)?")
+    saisir choix
+    si (choix==1) alors
+        ecrire("Quel est le nom de votre rendez-vous?")
+        saisir nom_recherche
+        tant que (affiche_rdv!=NULL) faire
+            comparaison=strcmp(affiche_rdv->nom_rdv,nom_recherche)//fonction disponible en c permettant de comparer deux chaines de caractères
+            si(comparaison==0) alors
+                ecrire("______________________")
+                ecrire ("le rendez-vous: le nom ; "&affiche_rdv->nom_rdv&"le lieu"&affiche_rdv->lieu_rdv&"la date:"&affiche_rdv->debut_rdv&"la durée"&affiche_rdv->duree_rdv)
+                pour i variant de 0 à affiche_rdv->nb_personne
+                    ecrire (affiche_rdv->personne_rdv[i])
+                Finpour
+                ecrire("______________________")
+            finsi
+            affiche_rdv=affiche_rdv->rdv_suiv
+        Fintantque
+    finsi
+    Sinon si(choix==2)faire
+        ecrire("Quelle est la date de votre rendez-vous?")
+        saisir date_recherche
+        tant que (affiche_rdv!=NULL) faire
+            si(date_recherche==affiche_rdv->debut_rdv) alors
+                ecrire("______________________")
+                ecrire ("le rendez-vous: le nom ; "&affiche_rdv->nom_rdv&"le lieu"&affiche_rdv->lieu_rdv&"la date:"&affiche_rdv->debut_rdv&"la durée"&affiche_rdv->duree_rdv)
+                pour i variant de 0 à affiche_rdv->nb_personne
+                    ecrire (affiche_rdv->personne_rdv[i])
+                Finpour
+                ecrire("______________________")
+            finsi
+            affiche_rdv=affiche_rdv->rdv_suiv
+        Fintantque
+    finsi
+Fin
+ 
+  
+  

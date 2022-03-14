@@ -1,0 +1,8 @@
+//dans un fichier
+O\n
+nb-rdv\n
+//dans un autre fichier
+nom,lieu,duree,date,nb_personne\n
+personne1\n
+personne2\n
+nom,lieu,duree,date,nb_personne\n

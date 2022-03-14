@@ -1,0 +1,59 @@
+
+Structure liste{
+  variable *rdv1 en rdv
+}
+Structure rdv{
+   Variable nom_rdv en caractère
+   Variable debut_rdv en DateTime
+   Variable duree_rdv en DateTime
+   Variable lieu_rdv en caractère
+   Variable personne_rdv en caractère
+   Variable *rdv_suiv en rdv
+}
+Fonction demander(question)
+    variables: question en caractère; reponse en caractère
+    //Je pose la question
+    Ecrire"question"
+    //j'attends la réponse 
+    lire reponse
+    //je renvoie la réponse
+    retourner reponse
+FinFonction
+
+Fonction completer_rdv(rdv_a_completer)
+  Variables : horaire en DateTime , duree en DateTime; heure_actuelle en SYSTEMTIME;
+  GetLocalTime(&heure_actuelle)
+  rdv_a_completer.nom_rdv = demander ("Quel est le nom du rendez vous ?)
+  rdv_a_completer.lieu_rdv = demander ("Quel est le lieu du rendez vous ?")
+  rdv_a_completer.personne_rdv = demander ("Qui est présent au rendez vous ?") 
+  Faire 
+    ecrire ("Quand est le rendez vous  ?")
+    saisir horaire
+    si horaire<heure_actuelle alors
+      ecrire("Veuillez saisir un rendez-vous situé après l'heure actuelle")
+    finsi
+  tant que horaire<heure_actuelle
+  rdv_a_completer.debut_rdv = horaire
+  ecrire ("Combien de temps dure le rendez vous ?")
+  saisir duree
+  rdv_a_completer.duree_rdv = duree
+FinFonction
+
+Variable tete en liste	
+variable P en rdv 
+    
+// On considere que la personne rentre ses rdv du lointain au plus proches (à améliorer)
+Debut
+//Uniquement premier rendez-vous
+ tete->rdv1 = nil
+ Faire 
+    Allouer(P)
+    completer_rdv(P) 
+    P->rdv_suiv = tete->rdv1 
+    tete->rdv1 = P 
+    continuer = demander ("voulez-vous continuez ?")
+ Tant que continuer != "non" 
+
+Fin
+  
+  

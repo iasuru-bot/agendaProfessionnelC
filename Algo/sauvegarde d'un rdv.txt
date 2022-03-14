@@ -1,0 +1,47 @@
+Structure agenda{
+  variable nb_rdv en entier
+  Pointeur 1_rdv en rdv
+}
+Structure rdv{
+  Variable nom_rdv en caractère
+  Variable debut_rdv en entier
+  Variable duree_rdv en entier
+  Variable lieu_rdv en caractère
+  Variable personne_rdv en caractère
+  Pointeur rdv_suiv en rdv
+}
+i et j en entier
+sauvegarde_rdv en rdv
+liste en agenda
+//fonction prévu à la fin de chaque fonction pouvant modifier un rdv(ajout/suppression)
+//la liste chainée est donc déjà faite
+Debut
+    //sauvegarde
+    //Supprime l'ancienne sauvegarde remove en c
+    remove("liste_tete.txt);
+    //ouverture des fichiers pour écrire dedans
+    sauvegarde_temp=fopen("nouvelle_liste_rdv.txt","w")
+    fichier_tete=fopen("liste_tete.txt","w")
+    sauvegarde_rdv=liste->1_rdv
+    //ecriture dans le fichier pour la tete de liste
+    ecrirefichier (fichier_tete,"O\n")//le O permet de savoir si le fichier contient une sauvegarde ou nn lors de la reconstruction
+    ecrirefichier (fichier_tete,'liste->nb_rdv)
+    //ecriture dans le fichier des rendez-vous
+    pour i variant de 0 à liste->nb_rdv faire
+        ecrirefichier(sauvegarde_temp,"sauvegarde_rdv->nom_rdv, sauvegarde_rdv->lieu_rdv, sauvegarde_rdv->duree_rdv, sauvegarde_rdv->debut_rdv, sauvegarde_rdv->nb_personne \n")
+        pour j variant de 0 à sauvegarde_rdv->nb_personne faire
+            ecrirefichier(sauvegarde_temp,"sauvegarde_rdv->personne_rdv[j] \n)
+        Finpour
+        sauvegarde_rdv=sauvegarde_rdv->rdv_suiv
+    Finpour
+    //fermeture des fichiers sauvegardés
+    fermeture(sauvegarde_temp)
+    fermeture(fichier_tete)
+    //supprimer l'ancien
+    remove("liste_rdv.txt")
+    //renommer le fichier temporaire
+    rename("nouvelle_liste_rdv.txt","liste_rdv.txt")
+Fin
+ 
+  
+  

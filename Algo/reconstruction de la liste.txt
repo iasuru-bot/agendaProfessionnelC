@@ -1,0 +1,75 @@
+Structure agenda{
+  variable nb_rdv en entier
+  Pointeur 1_rdv en rdv
+}
+Structure rdv{
+  Variable nom_rdv en caractère
+  Variable debut_rdv en entier
+  Variable duree_rdv en entier
+  Variable lieu_rdv en caractère
+  Variable personne_rdv en caractère
+  Pointeur rdv_suiv en rdv
+}
+i et j en entier
+vide en caractère
+premier_rdv en rdv
+nouveau_rdv en rdv
+rdv_a_remplir en rdv
+precedent_rdv en rdv
+liste en agenda
+//fonction prévu au début de chaque fonction
+Debut
+    //reconstruction
+    
+    //Récupération du fichier
+    fichier_tete=fopen("liste_tete.txt","r")
+    fichier_rdv=fopen("liste_rdv.txt","r")
+    si (fichier_rdv==NULL || fichier_tete==NULL) alors
+        ecrire ("Impossible de charger la liste de rendez-vous")
+    finsi
+    Sinon
+        vide=lirefichier(fichier_tete) //ici c'est un fgetc
+        Allouer(liste)
+        si (vide=EOF)alors
+            //pas de liste sauvegardé
+            liste->nb_rdv=0
+            liste->1_rdv =NULL
+        finsi
+        Sinon
+            liste->nb_rdv=lirefichier(fichier_tete) //fscanf
+            Allouer(premier_rdv)
+            liste->1_rdv=premier_rdv
+            rdv_a_remplir=premier_rdv
+            precedent_rdv=NULL
+            pour i  variant de 0 à liste->nb_rdv faire
+                //Premier rdv
+                si (i==0) alors
+                //je remplis le rdv
+                    lirefichier(fichier_rdv,&rdv_a_remplir->nom_rdv, &rdv_a_remplir->lieu_rdv, &rdv_a_remplir->duree_rdv, &rdv_a_remplir->debut_rdv, &rdv_a_remplir->nb_personne)
+                    pour j variant de 0 à sauvegarde_rdv->nb_personne faire
+                       lirefichier(fichier_rdv,&sauvegarde_rdv->personne_rdv[j])
+                    Finpour
+                    rdv_a_remplir->rdv_suiv=NULL
+                    precedent_rdv=rdv_a_remplir
+                fin si
+                //autre rdv
+                Sinon
+                    allouer(nouveau_rdv)
+                    rdv_a_remplir=nouveau_rdv
+                    //je remplis le rdv
+                    lirefichier(fichier_rdv,&rdv_a_remplir->nom_rdv, &rdv_a_remplir->lieu_rdv, &rdv_a_remplir->duree_rdv, &rdv_a_remplir->debut_rdv, &rdv_a_remplir->nb_personne)
+                    pour j variant de 0 à sauvegarde_rdv->nb_personne faire
+                       lirefichier(fichier_rdv,&sauvegarde_rdv->personne_rdv[j])
+                    Finpour
+                    rdv_a_remplir->rdv_suiv=NULL
+                    precedent_rdv=rdv_a_remplir
+                fin sinon
+            Finpour
+        finsinon
+        fermer(fichier_tete)
+        fermer(fichier_rdv)
+    fin Sinon
+Fin
+ 
+  
+  

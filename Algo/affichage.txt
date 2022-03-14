@@ -1,0 +1,34 @@
+
+Structure agenda{
+    variable nb_rdv en entier
+    Pointeur 1_rdv en rdv
+}
+Structure rdv{
+    Variable nom_rdv en caractère
+    Variable debut_rdv en entier
+    Variable duree_rdv en entier
+    Variable lieu_rdv en caractère
+    Variable personne_rdv[20] en caractère //tableau pour 20 personnes 
+    Pointeur rdv_suiv en rdv
+}
+
+
+    
+liste en agenda
+affiche_rdv en rdv
+
+//Partons du principe que la liste est déjà créé.
+Debut
+
+//Affichage 
+    affiche_rdv=liste.1_rdv
+    tant que (affiche_rdv!=NULL) faire
+        ecrire("______________________")
+        ecrire ("le rendez-vous: le nom ; "&affiche_rdv->nom_rdv&"le lieu"&affiche_rdv->lieu_rdv&"la date:"&affiche_rdv->debut_rdv&"la durée"&affiche_rdv->duree_rdv)
+        pour i variant de 0 à affiche_rdv->nb_personne
+            ecrire (affiche_rdv->personne_rdv[i])
+        Finpour
+    affiche_rdv=affiche_rdv->rdv_suiv    
+    Fintantque
+    ecrire("______________________")   
+Fin

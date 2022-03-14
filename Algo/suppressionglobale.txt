@@ -1,0 +1,15 @@
+//pas besoin de reconstruire la liste chainée avant cette fonction
+//fonction prévu pour supprimer tout la liste chainée sauvegardée 
+//donc on remet juste à zéro les deux fichier texte de sauvegarde
+Debut
+    //suppression globale
+    remove("liste_rdv.txt")
+    remove("liste_tete.txt")
+    fichier_tete=fopen("liste_tete.txt","w")
+    fichier_rdv=fopen("liste_rdv.txt","w")
+    fermer(fichier_tete)
+    fermer(fichier_rdv)
+Fin
+ 
+  
+  

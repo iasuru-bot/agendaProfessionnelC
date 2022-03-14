@@ -1,0 +1,68 @@
+
+//fonction prévu pour supprimer un rdv en fonction du nom ou de la date
+liste en agenda
+recherche_rdv,reliaison_rdv en rdv
+choix,comparaison,date_recherche en entier
+nom_recherche[20] en char
+
+Debut
+    //suppression recherche
+    ecrire ("Voulez vous rechercher votre rendez-vous par nom(1) ou par date(2)?")
+    saisir choix
+    reliaison_rdv=NULL
+    recherche_rdv=liste->pointeur_1
+    si (choix==1) alors
+        ecrire("Quel est le nom de votre rendez-vous?")
+        saisir nom_recherche
+        comparaison=strcmp(affiche_rdv->nom_rdv,nom_recherche)//fonction disponible en c permettant de comparer deux chaines de caractères
+        // on teste le premier chainon si c'est lui c'est le curseur de la tete de liste qui doit changer
+        si(comparaison==0) alors
+            liste->pointeur_1=recherche_rdv->rdv_suiv
+            liste->nb_rdv--
+        finsi
+        sinon
+            reliaison_rdv=liste->pointeur_1
+            recherche_rdv=recherche_rdv->rdv_suiv
+            tant que (recherche_rdv!=NULL) faire
+                comparaison=strcmp(affiche_rdv->nom_rdv,nom_recherche)//fonction disponible en c permettant de comparer deux chaines de caractères
+                si(comparaison==0) alors
+                    //si c'est le rdv a supprimer alors le rdv d'avant va pointer sur le rdv suiv celui testé
+                    reliaison_rdv->rdv_suiv=recherche_rdv->rdv_suiv
+                    liste->nb_rdv--
+                finsi
+                //passe au prochain test
+                reliaison_rdv=reliaison_rdv->rdv_suiv
+                recherche_rdv=recherche_rdv->rdv_suiv
+            Fintantque
+        finsinon
+    finsi
+    Sinon si(choix==2)faire
+        ecrire("Quelle est la date de votre rendez-vous?")
+        saisir date_recherche
+        //si c'est le premier rdv
+        si(date_recherche==recherche_rdv->debut_rdv) alors
+            liste->pointeur_1=recherche_rdv->rdv_suiv
+            liste->nb_rdv--
+        finsi
+        sinon
+            reliaison_rdv=liste->pointeur_1
+            recherche_rdv=recherche_rdv->rdv_suiv
+            tant que (recherche!=NULL) faire
+                si(date_recherche==recherche_rdv->debut_rdv) alors
+                    //si c'est le rdv a supprimer alors le rdv d'avant va pointer sur le rdv suiv celui testé
+                    reliaison_rdv->rdv_suiv=recherche_rdv->rdv_suiv
+                    liste->nb_rdv--
+                finsi
+                //passe au prochain test
+                reliaison_rdv=reliaison_rdv->rdv_suiv
+                recherche_rdv=recherche_rdv->rdv_suiv
+            Fintantque
+        finsinon
+    finsi
+    //Ensuite il faut sauvegarder la liste 
+    //mais si on a supprimer tout les rdv on effectue une suppression globale
+    //sinon on fait une sauvegarde normale
+Fin
+ 
+  
+  

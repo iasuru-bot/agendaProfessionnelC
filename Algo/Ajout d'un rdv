@@ -1,0 +1,76 @@
+
+
+Structure agenda{
+  variable nb_rdv en entier
+  Pointeur 1_rdv en rdv
+}
+Structure rdv{
+  Variable nom_rdv en caractère
+  Variable debut_rdv en entier
+  Variable duree_rdv en entier
+  Variable lieu_rdv en caractère
+  Variable personne_rdv en caractère
+  Pointeur rdv_suiv en rdv
+}
+
+Fonction demander(question)
+    variables: question en caractère; reponse en caractère
+    //Je pose la question
+    Ecrire"question"
+    //j'attends la réponse 
+    lire reponse
+    //je renvoie la réponse
+    retourner reponse
+FinFonction
+
+Fonction completer_rdv(rdv_a_completer)
+  Variables : horaire en entier(AAAAMMJJHHMM) , duree en entier; heure_actuelle en SYSTEMTIME;
+  GetLocalTime(&heure_actuelle)
+  rdv_a_completer.nom_rdv = demander ("Quel est le nom du rendez vous ?")
+  rdv_a_completer.lieu_rdv = demander ("Quel est le lieu du rendez vous ?")
+  rdv_a_completer.personne_rdv = demander ("Qui est présent au rendez vous ?") 
+
+  rdv_a_completer.debut_rdv = horaire
+
+  ecrire ("Combien de temps dure le rendez vous ?")
+  saisir duree
+  rdv_a_completer.duree_rdv = duree
+FinFonction
+    
+liste en agenda
+test_rdv en rdv
+rdv_prec en rdv
+new_rdv en rdv
+Debut
+// Initialisation
+  Allouer(liste)
+  liste.nb_rdv=0
+  liste.1_rdv=null
+
+//Ajout 
+  Allouer(new_rdv^)
+  completer_rdv(new_rdv) 
+  liste.nb_rdv++
+  test_rdv=liste.1_rdv
+  rdv_prec=NULL
+  si (test_rdv==null) alors
+    liste.1_rdv=new_rdv
+    new_rdv.rdv_suiv= null
+  Fin si
+  sinon
+    tant que (new_rdv.debut_rdv>test_rdv.debut_rdv) faire
+      rdv_prec=test_rdv
+      test_rdv=test_rdv.rdv_suiv
+      si (test_rdv.rdv_suiv==null) alors
+        rdv_prec.rdv_suiv=new_rdv
+        new_rdv.rdv_suiv=NULL
+        break
+      finsi
+    Fintantque
+    new_rdv.rdv_suiv=test_rdv
+    rdv_prec.rdv_suiv=new_rdv
+  finsinon
+Fin
+ 
+  
+  

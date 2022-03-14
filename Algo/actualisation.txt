@@ -1,0 +1,37 @@
+
+//fonction prévu pour actualiser la liste de rdv
+//donc la liste est reconstruite
+liste en agenda
+test_rdv en rdv
+i en entier
+choix,comparaison,date_aujourdhui en entier
+
+Debut
+    //actualisation des rdvs
+    ecrire ("Quelle est la date d'aujourd'hui?")
+    saisir date_aujourdhui
+    test_rdv=liste->pointeur_1
+    i=0
+    
+    tant que (test_rdv->debut_rdv<date_aujourdhui) faire
+        si(comparaison==0) alors
+            liste->pointeur_1=NULL
+            liste->nb_rdv=0
+            break
+        finsi
+        //passe au prochain test
+        test_rdv=recherche_rdv->test_suiv
+        i++
+    Fintantque
+    si(test_rdv!=NULL) alors
+        liste->pointeur_1=test_rdv
+        liste->nb_rdv=liste->nb_rdv-i
+    finsi
+    
+    //Ensuite il faut sauvegarder la liste 
+    //mais si on a supprimer tout les rdv on effectue une suppression globale
+    //sinon on fait une sauvegarde normale
+Fin
+ 
+  
+  
